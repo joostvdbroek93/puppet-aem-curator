@@ -126,19 +126,19 @@ define aem_curator::reconfig_aem (
         #
         # since we are only cleaning the install dir we are only removing AEM Packages
         #
-        $list_clean_directories.each | Integer $index, String $clean_directory| {
-          exec { "${aem_id}: Clean directory ${crx_quickstart_dir}/${clean_directory}/":
-            command => "rm -fr ${crx_quickstart_dir}/${clean_directory}/*.zip",
-            before  => [
-                        Exec["${aem_id}: sleep ${post_install_sleep_secs} seconds for package uninstallations"]
-                      ],
-            require => [
-                          Aem_aem["${aem_id}: Wait until CRX Package Manager is ready before reconfiguration"]
-                        ],
-          } -> exec { "${aem_id}: sleep ${post_install_sleep_secs} seconds for package uninstallations":
-            command => "sleep ${post_install_sleep_secs}",
-          }
-        }
+        # $list_clean_directories.each | Integer $index, String $clean_directory| {
+        #   exec { "${aem_id}: Clean directory ${crx_quickstart_dir}/${clean_directory}/":
+        #     command => "rm -fr ${crx_quickstart_dir}/${clean_directory}/*.zip",
+        #     before  => [
+        #                 Exec["${aem_id}: sleep ${post_install_sleep_secs} seconds for package uninstallations"]
+        #               ],
+        #     require => [
+        #                   Aem_aem["${aem_id}: Wait until CRX Package Manager is ready before reconfiguration"]
+        #                 ],
+        #   } -> exec { "${aem_id}: sleep ${post_install_sleep_secs} seconds for package uninstallations":
+        #     command => "sleep ${post_install_sleep_secs}",
+        #   }
+        # }
 
         aem_curator::install_aem_healthcheck {"${aem_id}: Install AEM Healthcheck":
           aem_base                => $aem_base,

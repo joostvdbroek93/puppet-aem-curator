@@ -210,14 +210,14 @@ class aem_curator::config_publish (
   # remove any aem-healthcheck-content package from the install directory
   # If install dir isn't cleaned up a step before per default
   #
-  if !('install' in $list_clean_directories) {
-  exec { "${aem_id}: remove ${crx_quickstart_dir}/install/aem-healthcheck-content-*.zip":
-    command => "rm -fr ${crx_quickstart_dir}/install/aem-healthcheck-content-*.zip",
-    before  => [
-      Service['aem-publish']
-      ],
-    }
-  }
+  # if !('install' in $list_clean_directories) {
+  # exec { "${aem_id}: remove ${crx_quickstart_dir}/install/aem-healthcheck-content-*.zip":
+  #   command => "rm -fr ${crx_quickstart_dir}/install/aem-healthcheck-content-*.zip",
+  #   before  => [
+  #     Service['aem-publish']
+  #     ],
+  #   }
+  # }
 
   aem_curator::install_aem_healthcheck {"${aem_id}: Install AEM Healthcheck":
     aem_base                => $aem_base,
